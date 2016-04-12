@@ -82,13 +82,13 @@ $(function () {
             var g = new graphlib.Graph();
 
             var cell_count = 0;
-            var input_nodes = [], output_nodes = [];
+            var input_nodes = {}, output_nodes = {};
             var netlist_cells = vnetlist.modules[Object.keys(vnetlist.modules)[0]].cells; //returns cells
             var netlist_ports = vnetlist.modules[Object.keys(vnetlist.modules)[0]].ports;
 
             for (var cell in netlist_cells) {
                 var current_cell = netlist_cells[cell];
-                var cell_name = (current_cell.type.slice(2, -1) + cell_count).toString();
+                var cell_name = (current_cell.type.slice(2, -1) + cell_count);
 
                 g.setNode(cell_name, current_cell);       //set nodes with their type as keys, set as delay later
 
@@ -98,14 +98,17 @@ $(function () {
                     if (!("_" + net_id + "_" in g.nodes())) g.setNode("_" + net_id + "_");
                     if (current_cell.port_directions[connection] == "input") g.setEdge("_" + net_id + "_", cell_name);
                     else g.setEdge(cell_name, "_" + net_id + "_");
-                    for (var port in netlist_ports) {
-                        if (netlist_ports[port]) { };
-                    }
                 }
                 cell_count++;
             }
-            console.log(g.nodes());
-            console.log(vnetlist);
+
+            //sets a dict for the input and output nodes
+            for (var port in netlist_ports) {
+                if (netlist_ports[port].direction === "input")
+                    input_nodes[port] = "_" + netlist_ports[port].bits[0] + "_";
+                else if (netlist_ports[port].direction === "output")
+                    output_nodes[port] = "_" + netlist_ports[port].bits[0] + "_";
+            }
         }
     };
 });
