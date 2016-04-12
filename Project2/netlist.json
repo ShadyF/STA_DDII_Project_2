@@ -1,0 +1,130 @@
+{
+  "creator": "Yosys 0.6 (git sha1 5869d26, i686-pc-mingw32-gcc 4.8.1 -Os)",
+  "modules": {
+    "FullAdder": {
+      "ports": {
+        "A": {
+          "direction": "input",
+          "bits": [ 2 ]
+        },
+        "B": {
+          "direction": "input",
+          "bits": [ 3 ]
+        },
+        "Cin": {
+          "direction": "input",
+          "bits": [ 4 ]
+        },
+        "S": {
+          "direction": "output",
+          "bits": [ 5 ]
+        },
+        "Cout": {
+          "direction": "output",
+          "bits": [ 6 ]
+        }
+      },
+      "cells": {
+        "$add$FullAdder.v:14$2": {
+          "hide_name": 1,
+          "type": "$add",
+          "parameters": {
+            "Y_WIDTH": 2,
+            "B_WIDTH": 1,
+            "A_WIDTH": 2,
+            "B_SIGNED": 0,
+            "A_SIGNED": 0
+          },
+          "attributes": {
+            "src": "FullAdder.v:14"
+          },
+          "port_directions": {
+            "Y": "output",
+            "B": "input",
+            "A": "input"
+          },
+          "connections": {
+            "Y": [ 5, 6 ],
+            "B": [ 4 ],
+            "A": [ 7, 8 ]
+          }
+        },
+        "$add$FullAdder.v:14$1": {
+          "hide_name": 1,
+          "type": "$add",
+          "parameters": {
+            "Y_WIDTH": 2,
+            "B_WIDTH": 1,
+            "A_WIDTH": 1,
+            "B_SIGNED": 0,
+            "A_SIGNED": 0
+          },
+          "attributes": {
+            "src": "FullAdder.v:14"
+          },
+          "port_directions": {
+            "Y": "output",
+            "B": "input",
+            "A": "input"
+          },
+          "connections": {
+            "Y": [ 7, 8 ],
+            "B": [ 3 ],
+            "A": [ 2 ]
+          }
+        }
+      },
+      "netnames": {
+        "$add$FullAdder.v:14$2_Y": {
+          "hide_name": 1,
+          "bits": [ 5, 6 ],
+          "attributes": {
+            "src": "FullAdder.v:14"
+          }
+        },
+        "$add$FullAdder.v:14$1_Y": {
+          "hide_name": 1,
+          "bits": [ 7, 8 ],
+          "attributes": {
+            "src": "FullAdder.v:14"
+          }
+        },
+        "Cout": {
+          "hide_name": 0,
+          "bits": [ 6 ],
+          "attributes": {
+            "src": "FullAdder.v:11"
+          }
+        },
+        "S": {
+          "hide_name": 0,
+          "bits": [ 5 ],
+          "attributes": {
+            "src": "FullAdder.v:10"
+          }
+        },
+        "Cin": {
+          "hide_name": 0,
+          "bits": [ 4 ],
+          "attributes": {
+            "src": "FullAdder.v:9"
+          }
+        },
+        "B": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "src": "FullAdder.v:8"
+          }
+        },
+        "A": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "src": "FullAdder.v:7"
+          }
+        }
+      }
+    }
+  }
+}
