@@ -98,8 +98,9 @@ $(function () {
                     if (!("_" + net_id + "_" in g.nodes())) g.setNode("_" + net_id + "_");
                     if (current_cell.port_directions[connection] == "input") g.setEdge("_" + net_id + "_", cell_name);
                     else g.setEdge(cell_name, "_" + net_id + "_");
-                    for(var port in vnetlist.modules[Object.keys(vnetlist.modules)[0]].ports) {
-                        if(
+                    for (var port in netlist_ports) {
+                        if (netlist_ports[port]) { };
+                    }
                 }
                 cell_count++;
             }
