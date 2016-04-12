@@ -7,6 +7,12 @@ $(function () {
     app = new function () {
         var that = this;
 
+        var g = new graphlib.Graph();
+        var cell_count = 0;
+        var input_nodes = {}, output_nodes = {};
+        var visited = {};
+        var current_path = [];
+        var all_paths = [];
 
         var loadingElements = {
             itemsCount: 0,
@@ -75,16 +81,28 @@ $(function () {
             var SCL = app["library"];
             var cells = SCL.cells;
             createNetlistDAG(app["netlist"]);
+            console.log(g.edges());
+
+            //initialise visited array to false
+            for (var i = 0; i < g.nodes().length; i++)
+                visited[g.nodes()[i]] = false;
+
+            //loop over inputs and outputs timing paths, O(n^2)
+            for (var i in input_nodes)
+                for (var j in output_nodes) {
+                    current_path = [];
+                    all_paths = [];
+                    identifyTimingPaths(input_nodes[i], output_nodes[j]);
+                    console.log(all_paths);
+                    for(var k = 0; k < all_paths.length; k++)
+                        $(".output").append("</br>" + all_paths[k] + "</br>");
+                }
             alert("all loaded");
         }
 
         function createNetlistDAG(vnetlist) {
-            var g = new graphlib.Graph();
-
-            var cell_count = 0;
-            var input_nodes = {}, output_nodes = {};
             var netlist_cells = vnetlist.modules[Object.keys(vnetlist.modules)[0]].cells; //returns cells
-            var netlist_ports = vnetlist.modules[Object.keys(vnetlist.modules)[0]].ports;
+            var netlist_ports = vnetlist.modules[Object.keys(vnetlist.modules)[0]].ports; //return ports
 
             for (var cell in netlist_cells) {
                 var current_cell = netlist_cells[cell];
@@ -108,6 +126,20 @@ $(function () {
                     input_nodes[port] = "_" + netlist_ports[port].bits[0] + "_";
                 else if (netlist_ports[port].direction === "output")
                     output_nodes[port] = "_" + netlist_ports[port].bits[0] + "_";
+            }
+        }
+        function identifyTimingPaths(s, e) {
+            if (s == e)
+                all_paths.push(current_path.slice().concat(e));     //copy current_path, add ending node and push to all_paths
+            else {
+                visited[s] = true;
+                current_path.push(s);
+                for (var i = 0; i < g.outEdges(s).length; i++) {
+                    if (visited[g.outEdges(s)[i].w] === false)
+                        identifyTimingPaths(g.outEdges(s)[i].w, e)
+                }
+                visited[s] = false;
+                current_path.pop();
             }
         }
     };
