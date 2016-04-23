@@ -1,0 +1,361 @@
+{
+  "creator": "Yosys 0.6 (git sha1 5869d26, i686-pc-mingw32-gcc 4.8.1 -Os)",
+  "modules": {
+    "full_adder": {
+      "ports": {
+        "a": {
+          "direction": "input",
+          "bits": [ 2 ]
+        },
+        "b": {
+          "direction": "input",
+          "bits": [ 3 ]
+        },
+        "cin": {
+          "direction": "input",
+          "bits": [ 4 ]
+        },
+        "sum": {
+          "direction": "output",
+          "bits": [ 5 ]
+        },
+        "cout": {
+          "direction": "output",
+          "bits": [ 6 ]
+        }
+      },
+      "cells": {
+        "_15_": {
+          "hide_name": 0,
+          "type": "OAI21X1",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "RCA_2Bit_noflatten.v:80"
+          },
+          "connections": {
+            "Y": [ 6 ],
+            "C": [ 7 ],
+            "B": [ 8 ],
+            "A": [ 9 ]
+          }
+        },
+        "_14_": {
+          "hide_name": 0,
+          "type": "NAND2X1",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "RCA_2Bit_noflatten.v:75"
+          },
+          "connections": {
+            "Y": [ 5 ],
+            "B": [ 10 ],
+            "A": [ 11 ]
+          }
+        },
+        "_13_": {
+          "hide_name": 0,
+          "type": "OAI21X1",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "RCA_2Bit_noflatten.v:69"
+          },
+          "connections": {
+            "Y": [ 11 ],
+            "C": [ 4 ],
+            "B": [ 12 ],
+            "A": [ 8 ]
+          }
+        },
+        "_12_": {
+          "hide_name": 0,
+          "type": "NOR2X1",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "RCA_2Bit_noflatten.v:64"
+          },
+          "connections": {
+            "Y": [ 8 ],
+            "B": [ 2 ],
+            "A": [ 3 ]
+          }
+        },
+        "_11_": {
+          "hide_name": 0,
+          "type": "AND2X2",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "RCA_2Bit_noflatten.v:59"
+          },
+          "connections": {
+            "Y": [ 12 ],
+            "B": [ 2 ],
+            "A": [ 3 ]
+          }
+        },
+        "_10_": {
+          "hide_name": 0,
+          "type": "NAND3X1",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "RCA_2Bit_noflatten.v:53"
+          },
+          "connections": {
+            "Y": [ 10 ],
+            "C": [ 13 ],
+            "B": [ 7 ],
+            "A": [ 9 ]
+          }
+        },
+        "_09_": {
+          "hide_name": 0,
+          "type": "OR2X2",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "RCA_2Bit_noflatten.v:48"
+          },
+          "connections": {
+            "Y": [ 13 ],
+            "B": [ 2 ],
+            "A": [ 3 ]
+          }
+        },
+        "_08_": {
+          "hide_name": 0,
+          "type": "NAND2X1",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "RCA_2Bit_noflatten.v:43"
+          },
+          "connections": {
+            "Y": [ 7 ],
+            "B": [ 2 ],
+            "A": [ 3 ]
+          }
+        },
+        "_07_": {
+          "hide_name": 0,
+          "type": "INVX1",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "RCA_2Bit_noflatten.v:39"
+          },
+          "connections": {
+            "Y": [ 9 ],
+            "A": [ 4 ]
+          }
+        }
+      },
+      "netnames": {
+        "sum": {
+          "hide_name": 0,
+          "bits": [ 5 ],
+          "attributes": {
+            "src": "RCA_2Bit_noflatten.v:38"
+          }
+        },
+        "cout": {
+          "hide_name": 0,
+          "bits": [ 6 ],
+          "attributes": {
+            "src": "RCA_2Bit_noflatten.v:37"
+          }
+        },
+        "cin": {
+          "hide_name": 0,
+          "bits": [ 4 ],
+          "attributes": {
+            "src": "RCA_2Bit_noflatten.v:36"
+          }
+        },
+        "b": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "src": "RCA_2Bit_noflatten.v:35"
+          }
+        },
+        "a": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "src": "RCA_2Bit_noflatten.v:34"
+          }
+        },
+        "_06_": {
+          "hide_name": 0,
+          "bits": [ 10 ],
+          "attributes": {
+            "src": "RCA_2Bit_noflatten.v:33"
+          }
+        },
+        "_05_": {
+          "hide_name": 0,
+          "bits": [ 13 ],
+          "attributes": {
+            "src": "RCA_2Bit_noflatten.v:32"
+          }
+        },
+        "_04_": {
+          "hide_name": 0,
+          "bits": [ 7 ],
+          "attributes": {
+            "src": "RCA_2Bit_noflatten.v:31"
+          }
+        },
+        "_03_": {
+          "hide_name": 0,
+          "bits": [ 9 ],
+          "attributes": {
+            "src": "RCA_2Bit_noflatten.v:30"
+          }
+        },
+        "_02_": {
+          "hide_name": 0,
+          "bits": [ 11 ],
+          "attributes": {
+            "src": "RCA_2Bit_noflatten.v:29"
+          }
+        },
+        "_01_": {
+          "hide_name": 0,
+          "bits": [ 8 ],
+          "attributes": {
+            "src": "RCA_2Bit_noflatten.v:28"
+          }
+        },
+        "_00_": {
+          "hide_name": 0,
+          "bits": [ 12 ],
+          "attributes": {
+            "src": "RCA_2Bit_noflatten.v:27"
+          }
+        }
+      }
+    },
+    "RCA_4Bit": {
+      "ports": {
+        "a": {
+          "direction": "input",
+          "bits": [ 2, 3 ]
+        },
+        "b": {
+          "direction": "input",
+          "bits": [ 4, 5 ]
+        },
+        "cin": {
+          "direction": "input",
+          "bits": [ 6 ]
+        },
+        "sum": {
+          "direction": "output",
+          "bits": [ 7, 8 ]
+        },
+        "cout": {
+          "direction": "output",
+          "bits": [ 9 ]
+        }
+      },
+      "cells": {
+        "FA2": {
+          "hide_name": 0,
+          "type": "full_adder",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "RCA_2Bit_noflatten.v:17"
+          },
+          "port_directions": {
+            "sum": "output",
+            "cout": "output",
+            "cin": "input",
+            "b": "input",
+            "a": "input"
+          },
+          "connections": {
+            "sum": [ 8 ],
+            "cout": [ 9 ],
+            "cin": [ 10 ],
+            "b": [ 5 ],
+            "a": [ 3 ]
+          }
+        },
+        "FA1": {
+          "hide_name": 0,
+          "type": "full_adder",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "RCA_2Bit_noflatten.v:10"
+          },
+          "port_directions": {
+            "sum": "output",
+            "cout": "output",
+            "cin": "input",
+            "b": "input",
+            "a": "input"
+          },
+          "connections": {
+            "sum": [ 7 ],
+            "cout": [ 10 ],
+            "cin": [ 6 ],
+            "b": [ 4 ],
+            "a": [ 2 ]
+          }
+        }
+      },
+      "netnames": {
+        "temp_cout": {
+          "hide_name": 0,
+          "bits": [ 10 ],
+          "attributes": {
+            "src": "RCA_2Bit_noflatten.v:9"
+          }
+        },
+        "sum": {
+          "hide_name": 0,
+          "bits": [ 7, 8 ],
+          "attributes": {
+            "src": "RCA_2Bit_noflatten.v:8"
+          }
+        },
+        "cout": {
+          "hide_name": 0,
+          "bits": [ 9 ],
+          "attributes": {
+            "src": "RCA_2Bit_noflatten.v:7"
+          }
+        },
+        "cin": {
+          "hide_name": 0,
+          "bits": [ 6 ],
+          "attributes": {
+            "src": "RCA_2Bit_noflatten.v:6"
+          }
+        },
+        "b": {
+          "hide_name": 0,
+          "bits": [ 4, 5 ],
+          "attributes": {
+            "src": "RCA_2Bit_noflatten.v:5"
+          }
+        },
+        "a": {
+          "hide_name": 0,
+          "bits": [ 2, 3 ],
+          "attributes": {
+            "src": "RCA_2Bit_noflatten.v:4"
+          }
+        }
+      }
+    }
+  }
+}

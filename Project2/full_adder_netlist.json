@@ -1,0 +1,245 @@
+{
+  "creator": "Yosys 0.6 (git sha1 5869d26, i686-pc-mingw32-gcc 4.8.1 -Os)",
+  "modules": {
+    "full_adder": {
+      "ports": {
+        "a": {
+          "direction": "input",
+          "bits": [ 2 ]
+        },
+        "b": {
+          "direction": "input",
+          "bits": [ 3 ]
+        },
+        "cin": {
+          "direction": "input",
+          "bits": [ 4 ]
+        },
+        "sum": {
+          "direction": "output",
+          "bits": [ 5 ]
+        },
+        "cout": {
+          "direction": "output",
+          "bits": [ 6 ]
+        }
+      },
+      "cells": {
+        "_15_": {
+          "hide_name": 0,
+          "type": "OAI21X1",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "full_adder_netlist.v:57"
+          },
+          "connections": {
+            "Y": [ 6 ],
+            "C": [ 7 ],
+            "B": [ 8 ],
+            "A": [ 9 ]
+          }
+        },
+        "_14_": {
+          "hide_name": 0,
+          "type": "NAND2X1",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "full_adder_netlist.v:52"
+          },
+          "connections": {
+            "Y": [ 5 ],
+            "B": [ 10 ],
+            "A": [ 11 ]
+          }
+        },
+        "_13_": {
+          "hide_name": 0,
+          "type": "OAI21X1",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "full_adder_netlist.v:46"
+          },
+          "connections": {
+            "Y": [ 11 ],
+            "C": [ 4 ],
+            "B": [ 12 ],
+            "A": [ 8 ]
+          }
+        },
+        "_12_": {
+          "hide_name": 0,
+          "type": "NOR2X1",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "full_adder_netlist.v:41"
+          },
+          "connections": {
+            "Y": [ 8 ],
+            "B": [ 2 ],
+            "A": [ 3 ]
+          }
+        },
+        "_11_": {
+          "hide_name": 0,
+          "type": "AND2X2",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "full_adder_netlist.v:36"
+          },
+          "connections": {
+            "Y": [ 12 ],
+            "B": [ 2 ],
+            "A": [ 3 ]
+          }
+        },
+        "_10_": {
+          "hide_name": 0,
+          "type": "NAND3X1",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "full_adder_netlist.v:30"
+          },
+          "connections": {
+            "Y": [ 10 ],
+            "C": [ 13 ],
+            "B": [ 7 ],
+            "A": [ 9 ]
+          }
+        },
+        "_09_": {
+          "hide_name": 0,
+          "type": "OR2X2",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "full_adder_netlist.v:25"
+          },
+          "connections": {
+            "Y": [ 13 ],
+            "B": [ 2 ],
+            "A": [ 3 ]
+          }
+        },
+        "_08_": {
+          "hide_name": 0,
+          "type": "NAND2X1",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "full_adder_netlist.v:20"
+          },
+          "connections": {
+            "Y": [ 7 ],
+            "B": [ 2 ],
+            "A": [ 3 ]
+          }
+        },
+        "_07_": {
+          "hide_name": 0,
+          "type": "INVX1",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "full_adder_netlist.v:16"
+          },
+          "connections": {
+            "Y": [ 9 ],
+            "A": [ 4 ]
+          }
+        }
+      },
+      "netnames": {
+        "sum": {
+          "hide_name": 0,
+          "bits": [ 5 ],
+          "attributes": {
+            "src": "full_adder_netlist.v:15"
+          }
+        },
+        "cout": {
+          "hide_name": 0,
+          "bits": [ 6 ],
+          "attributes": {
+            "src": "full_adder_netlist.v:14"
+          }
+        },
+        "cin": {
+          "hide_name": 0,
+          "bits": [ 4 ],
+          "attributes": {
+            "src": "full_adder_netlist.v:13"
+          }
+        },
+        "b": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "src": "full_adder_netlist.v:12"
+          }
+        },
+        "a": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "src": "full_adder_netlist.v:11"
+          }
+        },
+        "_06_": {
+          "hide_name": 0,
+          "bits": [ 10 ],
+          "attributes": {
+            "src": "full_adder_netlist.v:10"
+          }
+        },
+        "_05_": {
+          "hide_name": 0,
+          "bits": [ 13 ],
+          "attributes": {
+            "src": "full_adder_netlist.v:9"
+          }
+        },
+        "_04_": {
+          "hide_name": 0,
+          "bits": [ 7 ],
+          "attributes": {
+            "src": "full_adder_netlist.v:8"
+          }
+        },
+        "_03_": {
+          "hide_name": 0,
+          "bits": [ 9 ],
+          "attributes": {
+            "src": "full_adder_netlist.v:7"
+          }
+        },
+        "_02_": {
+          "hide_name": 0,
+          "bits": [ 11 ],
+          "attributes": {
+            "src": "full_adder_netlist.v:6"
+          }
+        },
+        "_01_": {
+          "hide_name": 0,
+          "bits": [ 8 ],
+          "attributes": {
+            "src": "full_adder_netlist.v:5"
+          }
+        },
+        "_00_": {
+          "hide_name": 0,
+          "bits": [ 12 ],
+          "attributes": {
+            "src": "full_adder_netlist.v:4"
+          }
+        }
+      }
+    }
+  }
+}

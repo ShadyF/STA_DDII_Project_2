@@ -1,0 +1,429 @@
+{
+  "creator": "Yosys 0.6 (git sha1 5869d26, i686-pc-mingw32-gcc 4.8.1 -Os)",
+  "modules": {
+    "RCA_4Bit": {
+      "ports": {
+        "a": {
+          "direction": "input",
+          "bits": [ 2, 3 ]
+        },
+        "b": {
+          "direction": "input",
+          "bits": [ 4, 5 ]
+        },
+        "cin": {
+          "direction": "input",
+          "bits": [ 6 ]
+        },
+        "sum": {
+          "direction": "output",
+          "bits": [ 7, 8 ]
+        },
+        "cout": {
+          "direction": "output",
+          "bits": [ 9 ]
+        }
+      },
+      "cells": {
+        "_31_": {
+          "hide_name": 0,
+          "type": "OAI21X1",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "netlist.v:112"
+          },
+          "connections": {
+            "Y": [ 9 ],
+            "C": [ 10 ],
+            "B": [ 11 ],
+            "A": [ 12 ]
+          }
+        },
+        "_30_": {
+          "hide_name": 0,
+          "type": "NAND2X1",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "netlist.v:107"
+          },
+          "connections": {
+            "Y": [ 8 ],
+            "B": [ 13 ],
+            "A": [ 14 ]
+          }
+        },
+        "_29_": {
+          "hide_name": 0,
+          "type": "OAI21X1",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "netlist.v:101"
+          },
+          "connections": {
+            "Y": [ 14 ],
+            "C": [ 15 ],
+            "B": [ 16 ],
+            "A": [ 11 ]
+          }
+        },
+        "_28_": {
+          "hide_name": 0,
+          "type": "NOR2X1",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "netlist.v:96"
+          },
+          "connections": {
+            "Y": [ 11 ],
+            "B": [ 3 ],
+            "A": [ 5 ]
+          }
+        },
+        "_27_": {
+          "hide_name": 0,
+          "type": "AND2X2",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "netlist.v:91"
+          },
+          "connections": {
+            "Y": [ 16 ],
+            "B": [ 3 ],
+            "A": [ 5 ]
+          }
+        },
+        "_26_": {
+          "hide_name": 0,
+          "type": "NAND3X1",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "netlist.v:85"
+          },
+          "connections": {
+            "Y": [ 13 ],
+            "C": [ 17 ],
+            "B": [ 10 ],
+            "A": [ 12 ]
+          }
+        },
+        "_25_": {
+          "hide_name": 0,
+          "type": "OR2X2",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "netlist.v:80"
+          },
+          "connections": {
+            "Y": [ 17 ],
+            "B": [ 3 ],
+            "A": [ 5 ]
+          }
+        },
+        "_24_": {
+          "hide_name": 0,
+          "type": "NAND2X1",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "netlist.v:75"
+          },
+          "connections": {
+            "Y": [ 10 ],
+            "B": [ 3 ],
+            "A": [ 5 ]
+          }
+        },
+        "_23_": {
+          "hide_name": 0,
+          "type": "INVX1",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "netlist.v:71"
+          },
+          "connections": {
+            "Y": [ 12 ],
+            "A": [ 15 ]
+          }
+        },
+        "_22_": {
+          "hide_name": 0,
+          "type": "OAI21X1",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "netlist.v:65"
+          },
+          "connections": {
+            "Y": [ 15 ],
+            "C": [ 18 ],
+            "B": [ 19 ],
+            "A": [ 20 ]
+          }
+        },
+        "_21_": {
+          "hide_name": 0,
+          "type": "NAND2X1",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "netlist.v:60"
+          },
+          "connections": {
+            "Y": [ 7 ],
+            "B": [ 21 ],
+            "A": [ 22 ]
+          }
+        },
+        "_20_": {
+          "hide_name": 0,
+          "type": "OAI21X1",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "netlist.v:54"
+          },
+          "connections": {
+            "Y": [ 22 ],
+            "C": [ 6 ],
+            "B": [ 23 ],
+            "A": [ 19 ]
+          }
+        },
+        "_19_": {
+          "hide_name": 0,
+          "type": "NOR2X1",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "netlist.v:49"
+          },
+          "connections": {
+            "Y": [ 19 ],
+            "B": [ 2 ],
+            "A": [ 4 ]
+          }
+        },
+        "_18_": {
+          "hide_name": 0,
+          "type": "AND2X2",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "netlist.v:44"
+          },
+          "connections": {
+            "Y": [ 23 ],
+            "B": [ 2 ],
+            "A": [ 4 ]
+          }
+        },
+        "_17_": {
+          "hide_name": 0,
+          "type": "NAND3X1",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "netlist.v:38"
+          },
+          "connections": {
+            "Y": [ 21 ],
+            "C": [ 24 ],
+            "B": [ 18 ],
+            "A": [ 20 ]
+          }
+        },
+        "_16_": {
+          "hide_name": 0,
+          "type": "OR2X2",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "netlist.v:33"
+          },
+          "connections": {
+            "Y": [ 24 ],
+            "B": [ 2 ],
+            "A": [ 4 ]
+          }
+        },
+        "_15_": {
+          "hide_name": 0,
+          "type": "NAND2X1",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "netlist.v:28"
+          },
+          "connections": {
+            "Y": [ 18 ],
+            "B": [ 2 ],
+            "A": [ 4 ]
+          }
+        },
+        "_14_": {
+          "hide_name": 0,
+          "type": "INVX1",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "netlist.v:24"
+          },
+          "connections": {
+            "Y": [ 20 ],
+            "A": [ 6 ]
+          }
+        }
+      },
+      "netnames": {
+        "sum": {
+          "hide_name": 0,
+          "bits": [ 7, 8 ],
+          "attributes": {
+            "src": "netlist.v:23"
+          }
+        },
+        "cout": {
+          "hide_name": 0,
+          "bits": [ 9 ],
+          "attributes": {
+            "src": "netlist.v:22"
+          }
+        },
+        "cin": {
+          "hide_name": 0,
+          "bits": [ 6 ],
+          "attributes": {
+            "src": "netlist.v:21"
+          }
+        },
+        "b": {
+          "hide_name": 0,
+          "bits": [ 4, 5 ],
+          "attributes": {
+            "src": "netlist.v:20"
+          }
+        },
+        "a": {
+          "hide_name": 0,
+          "bits": [ 2, 3 ],
+          "attributes": {
+            "src": "netlist.v:19"
+          }
+        },
+        "FA1.cout": {
+          "hide_name": 0,
+          "bits": [ 15 ],
+          "attributes": {
+            "src": "netlist.v:18"
+          }
+        },
+        "_13_": {
+          "hide_name": 0,
+          "bits": [ 13 ],
+          "attributes": {
+            "src": "netlist.v:17"
+          }
+        },
+        "_12_": {
+          "hide_name": 0,
+          "bits": [ 17 ],
+          "attributes": {
+            "src": "netlist.v:16"
+          }
+        },
+        "_11_": {
+          "hide_name": 0,
+          "bits": [ 10 ],
+          "attributes": {
+            "src": "netlist.v:15"
+          }
+        },
+        "_10_": {
+          "hide_name": 0,
+          "bits": [ 12 ],
+          "attributes": {
+            "src": "netlist.v:14"
+          }
+        },
+        "_09_": {
+          "hide_name": 0,
+          "bits": [ 14 ],
+          "attributes": {
+            "src": "netlist.v:13"
+          }
+        },
+        "_08_": {
+          "hide_name": 0,
+          "bits": [ 11 ],
+          "attributes": {
+            "src": "netlist.v:12"
+          }
+        },
+        "_07_": {
+          "hide_name": 0,
+          "bits": [ 16 ],
+          "attributes": {
+            "src": "netlist.v:11"
+          }
+        },
+        "_06_": {
+          "hide_name": 0,
+          "bits": [ 21 ],
+          "attributes": {
+            "src": "netlist.v:10"
+          }
+        },
+        "_05_": {
+          "hide_name": 0,
+          "bits": [ 24 ],
+          "attributes": {
+            "src": "netlist.v:9"
+          }
+        },
+        "_04_": {
+          "hide_name": 0,
+          "bits": [ 18 ],
+          "attributes": {
+            "src": "netlist.v:8"
+          }
+        },
+        "_03_": {
+          "hide_name": 0,
+          "bits": [ 20 ],
+          "attributes": {
+            "src": "netlist.v:7"
+          }
+        },
+        "_02_": {
+          "hide_name": 0,
+          "bits": [ 22 ],
+          "attributes": {
+            "src": "netlist.v:6"
+          }
+        },
+        "_01_": {
+          "hide_name": 0,
+          "bits": [ 19 ],
+          "attributes": {
+            "src": "netlist.v:5"
+          }
+        },
+        "_00_": {
+          "hide_name": 0,
+          "bits": [ 23 ],
+          "attributes": {
+            "src": "netlist.v:4"
+          }
+        }
+      }
+    }
+  }
+}

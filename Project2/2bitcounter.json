@@ -1,0 +1,152 @@
+{
+  "creator": "Yosys 0.6 (git sha1 5869d26, i686-pc-mingw32-gcc 4.8.1 -Os)",
+  "modules": {
+    "counter_2bit": {
+      "ports": {
+        "clk": {
+          "direction": "input",
+          "bits": [ 2 ]
+        },
+        "reset": {
+          "direction": "input",
+          "bits": [ 3 ]
+        },
+        "dout": {
+          "direction": "output",
+          "bits": [ 4, 5 ]
+        }
+      },
+      "cells": {
+        "_8_": {
+          "hide_name": 0,
+          "type": "DFFPOSX1",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "2bitcounter.v:36"
+          },
+          "connections": {
+            "Q": [ 5 ],
+            "D": [ 6 ],
+            "CLK": [ 2 ]
+          }
+        },
+        "_7_": {
+          "hide_name": 0,
+          "type": "DFFPOSX1",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "2bitcounter.v:31"
+          },
+          "connections": {
+            "Q": [ 4 ],
+            "D": [ 7 ],
+            "CLK": [ 2 ]
+          }
+        },
+        "_6_": {
+          "hide_name": 0,
+          "type": "NOR2X1",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "2bitcounter.v:26"
+          },
+          "connections": {
+            "Y": [ 7 ],
+            "B": [ 4 ],
+            "A": [ 3 ]
+          }
+        },
+        "_5_": {
+          "hide_name": 0,
+          "type": "AOI21X1",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "2bitcounter.v:20"
+          },
+          "connections": {
+            "Y": [ 6 ],
+            "C": [ 8 ],
+            "B": [ 5 ],
+            "A": [ 4 ]
+          }
+        },
+        "_4_": {
+          "hide_name": 0,
+          "type": "OAI21X1",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "2bitcounter.v:14"
+          },
+          "connections": {
+            "Y": [ 8 ],
+            "C": [ 9 ],
+            "B": [ 5 ],
+            "A": [ 4 ]
+          }
+        },
+        "_3_": {
+          "hide_name": 0,
+          "type": "INVX1",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "2bitcounter.v:10"
+          },
+          "connections": {
+            "Y": [ 9 ],
+            "A": [ 3 ]
+          }
+        }
+      },
+      "netnames": {
+        "reset": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "src": "2bitcounter.v:9"
+          }
+        },
+        "dout": {
+          "hide_name": 0,
+          "bits": [ 4, 5 ],
+          "attributes": {
+            "src": "2bitcounter.v:8"
+          }
+        },
+        "clk": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "src": "2bitcounter.v:7"
+          }
+        },
+        "_2_": {
+          "hide_name": 0,
+          "bits": [ 8 ],
+          "attributes": {
+            "src": "2bitcounter.v:6"
+          }
+        },
+        "_1_": {
+          "hide_name": 0,
+          "bits": [ 9 ],
+          "attributes": {
+            "src": "2bitcounter.v:5"
+          }
+        },
+        "_0_": {
+          "hide_name": 0,
+          "bits": [ 7, 6 ],
+          "attributes": {
+            "src": "2bitcounter.v:4"
+          }
+        }
+      }
+    }
+  }
+}
