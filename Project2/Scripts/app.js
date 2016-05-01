@@ -14,6 +14,13 @@ $(function () {
         var current_path = [];
         var all_paths = [];
         var output_pins = [];
+        var output_ports = [];
+        var input_net_ids = {};
+        var output_net_ids = {};
+        var input_net_ids_node_names = {};
+        var output_net_ids_node_names = {};
+        var flipflop_outputs = [];
+        var flipflop_inputs = [];
 
         var loadingElements = {
             itemsCount: 0,
@@ -25,6 +32,11 @@ $(function () {
             }, {
                 elName: "netListInput",
                 varName: "netlist",
+                loaded: false,
+                onLoaded: onNetListLoaded
+            }, {
+                elName: "netCapacitance",
+                varName: "netcapacitance",
                 loaded: false,
                 onLoaded: onNetListLoaded
             }]
@@ -84,6 +96,7 @@ $(function () {
 
             console.log(SCL);
             console.log(app["netlist"]);
+            console.log(app["netcapacitance"])
 
             /*
             !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -110,7 +123,13 @@ $(function () {
             //For a certain gate, consideres both falling and rising delay and take the WORST VALUE(bigger value)
             //If the falling delay is taken, the falling output transition slew is also taken.
             //If the rising delay is taken, the rising output transition slew is taken.
+
+
+            //injectNetCapacitance();
             calculateGateDelays();
+            calculateFFAAT();
+            calculateAAT();
+
 
             //initialise visited array to false, needed for identifyTimingPaths function
             for (var i = 0; i < g.nodes().length; i++)
@@ -134,9 +153,6 @@ $(function () {
             var netlist_cells = vnetlist.modules[Object.keys(vnetlist.modules)[0]].cells; //returns netlist cells
             var netlist_ports = vnetlist.modules[Object.keys(vnetlist.modules)[0]].ports; //return netlist ports
 
-            var input_net_ids = {};
-            var output_net_ids = {};
-
             for (var cell in netlist_cells) {
                 var current_cell = netlist_cells[cell];
                 var cell_type = current_cell.type;
@@ -156,29 +172,31 @@ $(function () {
                     	//First checks if cell is a flip flop
                     	//if true, adds the D pin to the list of ending nodes
                     	//Change this to make use of "is_ff" in library cells rather than indexOf("DFF")
-                        if (cell_type.indexOf("DFF") > -1 && pin != "CLK" && pin != "R")
+                        if (cell_type.indexOf("DFF") > -1 && pin != "CLK" && pin != "R") {
+                        	flipflop_inputs.push(node_name)
                             ending_nodes.push(node_name)
-
+                        }
                         cell_inputs.push(node_name);
 
                         if (bit_id in input_net_ids) input_net_ids[bit_id].push(node_name);
                         else input_net_ids[bit_id] = [node_name];
 
-                        g.setNode(node_name, { pin_name: pin, type: cell_type, direction: pin_direction, capacitance: pin_capacitance, slew: 0, delay: 0} );
+                        g.setNode(node_name, { pin_name: pin, type: cell_type, direction: pin_direction, capacitance: pin_capacitance, slew: 0, delay: 0, AAT:0 } );
                     }
                     else {
                     	//Adds Q pin to list of starting nodes
                     	//Change this to make use of is_ff in library cells
-                        if (cell_type.indexOf("DFF") > -1)                                      
+                        if (cell_type.indexOf("DFF") > -1){                                      
                             starting_nodes.push(node_name)
-
+                            flipflop_outputs.push(node_name)
+                        }
                         cell_outputs.push(node_name);
 
                         if (bit_id in output_net_ids) output_net_ids[bit_id].push(node_name);
                         else output_net_ids[bit_id] = [node_name];
 
                         g.setNode(node_name, { pin_name: pin, type: cell_type, direction: pin_direction, capacitance: pin_capacitance,
-                        						timing: library_cell.pins[pin].timing, slew: 0, delay: 0, load_capacitance: 0});
+                        						timing: library_cell.pins[pin].timing, slew: 0, delay: 0, load_capacitance: 0, AAT: 0});
                     }
                 }
 
@@ -195,13 +213,12 @@ $(function () {
                 cell_count++;
             }
 
-            //Connect wires between each gate(outputs to inputs)
+            //Connect wires between each gate(outputs to inputs) of weight(delay) equal to 0
             for (var output_id in output_net_ids)
                 if (output_id in input_net_ids)
                     for (var i = 0; i < output_net_ids[output_id].length; i++)
                         for (var j = 0; j < input_net_ids[output_id].length; j++)
-                            g.setEdge(output_net_ids[output_id][i], input_net_ids[output_id][j]);
-
+                            g.setEdge(output_net_ids[output_id][i], input_net_ids[output_id][j], 0);
 
             //Add input and output ports to the DAG
             for (var port_name in netlist_ports) {
@@ -209,26 +226,25 @@ $(function () {
 
                 if (port.direction === "input") {
                     for (var i = 0; i < port.bits.length; i++) {
-
                         var node_name = port_name + "[" + i + "]";
-                        g.setNode(node_name, { type: "input", direction: "input", capacitance: 0, delay: 0 });
+                        g.setNode(node_name, { type: "input", direction: "input", capacitance: 0, delay: 0, AAT: 0});
 
                         starting_nodes.push(node_name);
-
+                        input_net_ids_node_names[port.bits[i]] = node_name;
                         for (var j = 0; j < input_net_ids[port.bits[i]].length; j++)
-                            g.setEdge(node_name, input_net_ids[port.bits[i]][j]);
+                            g.setEdge(node_name, input_net_ids[port.bits[i]][j], 0);
                     }
                 }
 
                 else {
                     for (var i = 0; i < port.bits.length; i++) {
                         var node_name = port_name + "[" + i + "]";
-                        g.setNode(node_name, { type: "output", direction: "output", capacitance: 0, delay: 0});
-
+                        g.setNode(node_name, { type: "output", direction: "output", capacitance: 0, delay: 0, AAT: 0});
+                        output_ports.push(node_name);
                         ending_nodes.push(node_name);
-
+                        output_net_ids_node_names[port.bits[i]] = node_name;
                         for (var j = 0; j < output_net_ids[port.bits[i]].length; j++)
-                            g.setEdge(output_net_ids[port.bits[i]][j], node_name);
+                            g.setEdge(output_net_ids[port.bits[i]][j], node_name, 0);
                     }
                 }
             }
@@ -260,9 +276,11 @@ $(function () {
         			//if pin in output pins
         			if(output_pins.indexOf(pin) > -1) {
         				var output_pin = g.node(pin);
+
         				var load_capacitance = 0.0;
+
         				for (var i = 0; i < g.outEdges(pin).length; i++)        //calculates load capacitance
-        					load_capacitance += g.node(g.outEdges(pin)[i].w).capacitance;  
+        					load_capacitance += g.node(g.outEdges(pin)[i].w).capacitance + g.edge(g.outEdges(pin)[0]);
 
         				var output_pin_delay_info = calculatePinDelay(pin, W[vertex], load_capacitance);
         				g.setEdge(W[vertex], pin, output_pin_delay_info["delay"]);		//Set weight as time delay between input pin(W[vertex]) and output pin(pin)
@@ -288,7 +306,6 @@ $(function () {
         	}
         }
         function calculatePinDelay(output_pin, input_pin, load_capacitance) {
-        	var load_capacitance = 0.0;
         	var input_slew = g.node(input_pin).slew;
         	var input_pin_name = g.node(input_pin).pin_name;
         	if(g.node(output_pin).type.indexOf("DFF") > -1)
@@ -370,6 +387,103 @@ $(function () {
         	return output_slew;
         }
 
+        function calculateAAT() {
+        	var W = starting_nodes.slice();		//Makes a copy of starting_nodes instead of reference
+
+        	var edge_tracker = {};		//Keeps track of whether all the incoming edges of an output node have been traversed
+        	for(var vertex = 0; vertex < W.length; vertex++) {
+        		var nodes = g.outEdges(W[vertex]);
+
+        		for(var node in nodes) {
+        			var pin = nodes[node].w;
+
+        			//if pin in output pins
+        			if(output_pins.indexOf(pin) > -1) {
+        				var output_pin = g.node(pin);
+        				var output_AAT = g.node(g.inEdges(W[vertex])[0].v).delay + g.node(g.inEdges(W[vertex])[0].v).AAT + g.edge({v:g.inEdges(W[vertex])[0].v, w:W[vertex]});
+
+        				 if(output_AAT > output_pin.AAT) {
+        				 	output_pin.AAT = output_AAT;
+        				}
+
+        				if(pin in edge_tracker)
+        					edge_tracker[pin]++;
+        				else
+        					edge_tracker[pin] = 1;
+        				if(g.nodeEdges(pin).length - g.outEdges(pin).length == edge_tracker[pin])
+        					W.push(pin);
+        				
+        				}
+        			else if(output_ports.indexOf(pin) > -1) {
+        				var output_pin = g.node(pin);
+        				var output_AAT = g.node(W[vertex]).delay + g.node(W[vertex]).AAT + g.edge({v:W[vertex], w: pin});
+        				 if(output_AAT > output_pin.AAT) {
+        				 	output_pin.AAT = output_AAT;
+        				}
+
+        				if(pin in edge_tracker)
+        					edge_tracker[pin]++;
+        				else
+        					edge_tracker[pin] = 1;
+        				if(g.nodeEdges(pin).length - g.outEdges(pin).length == edge_tracker[pin])
+        					W.push(pin);
+        			}
+        			else
+        				W.push(pin);
+        		}
+        	}
+        }
+
+        function calculateFFAAT() {
+        	/*
+        	for(var output_pin in flipflop_outputs)
+        		for(var input_pin in flipflop_outputs) {
+        			current_path = [];
+                    all_paths = [];
+                    identifyTimingPaths(flipflop_outputs[output_pin], flipflop_outputs[input_pin]);
+                    for (var k = 0; k < all_paths.length; k++)
+                        printPath(all_paths[k]);*/
+                }
+
+        function injectNetCapacitance() {
+        	var bit_capacitances = {}
+        	var netnames = app["netlist"].modules[Object.keys(app["netlist"].modules)[0]].netnames; //returns netlist cells
+
+        	for(var net in app['netcapacitance']) {
+        		for(var bit in netnames[net].bits) {
+        			bit_capacitances[netnames[net].bits[bit]] = app['netcapacitance'][net]
+        		}
+        	}
+
+        	for (var i in input_net_ids_node_names) {
+        		if(i in bit_capacitances)
+        			for(var j = 0; j < input_net_ids[i].length; j++) 
+        				g.setEdge(input_net_ids_node_names[i], input_net_ids[i][j], bit_capacitances[i]);
+        	}
+
+        	for (var i in output_net_ids_node_names) {
+        		if(i in bit_capacitances)
+        			for(var j = 0; j < output_net_ids[i].length; j++) 
+        				g.setEdge(output_net_ids[i][j], output_net_ids_node_names[i], bit_capacitances[i]);        			
+        	}
+
+        	for (var i in output_net_ids_node_names) {
+        		if(i in bit_capacitances && i in input_net_ids_node_names)
+        			for(var j = 0; j < output_net_ids[i].length; j++) {
+        				g.setEdge(output_net_ids[i][j], output_net_ids_node_names[i], bit_capacitances[i]);
+        			}
+        	}
+
+
+        	for (var output_id in output_net_ids)
+        		if (output_id in input_net_ids && output_id in bit_capacitances)
+                    for (var i = 0; i < output_net_ids[output_id].length; i++)
+                        for (var j = 0; j < input_net_ids[output_id].length; j++){
+                            	g.setEdge(output_net_ids[output_id][i], input_net_ids[output_id][j], bit_capacitances[output_id]);
+                            } 
+
+        }
+
         function printPath(path) {
             var total_delay = 0.0;
             var delay, node;
@@ -413,7 +527,8 @@ $(function () {
                     }
                     total_delay += delay;*/
                 total_delay += node.delay
-                $(".output").append(path[i] + "&emsp;&emsp;" + node.type +"&emsp;&emsp;" + Math.round(node.delay*1000) + "&emsp;&emsp;" + Math.round(total_delay*1000) + "</br>");
+                $(".output").append(path[i] + "&emsp;&emsp;" + node.type +"&emsp;&emsp;" + Math.round(node.delay*1000) + "&emsp;&emsp;" + Math.round(total_delay*1000)
+                					+ "&emsp;&emsp;"+ Math.round(node.AAT*1000) + "</br>");
             }
         }
 
