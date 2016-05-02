@@ -74,6 +74,7 @@
     <Content Include="osu350.json" />
     <Content Include="netlist.json" />
     <Content Include="netlist1.json" />
+    <Content Include="netcapacitance.json" />
     <None Include="Scripts\jquery-2.2.2.intellisense.js" />
     <Content Include="Scripts\graphlib.js" />
     <Content Include="Scripts\jquery-2.2.2.js" />
