@@ -1,0 +1,12 @@
+{
+	"clock": 2.5,
+	"input_delay": {
+		"a": 0.01,
+		"b": 0.04,
+		"cin": 0.02
+		},
+	"output_delay": {
+		"sum": 0.5,
+		"cout": 0.3
+	}
+}

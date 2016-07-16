@@ -1,0 +1,8 @@
+{
+	"clock": 2.4,
+	"input_delay": {
+		},
+	"output_delay": {
+		"dout": 0.4
+	}
+}
